@@ -67,3 +67,7 @@ class PseudoVerticalOperator(bpy.types.Operator):
                 obj.data.body = convert_to_pseudo_vertical(obj.data.body)
 
         return {"FINISHED"}
+
+
+bpy.utils.register_class(PseudoVerticalOperator)
+bpy.utils.register_class(PseudoVerticalPanel)
