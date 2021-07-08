@@ -54,9 +54,19 @@ def text_to_horizontal(text, lines_rtl=True):
     # use case
     max_length = len(max(columns, key=len))
     lines = []
+    # Say we have
+    #
+    #   c a
+    #   d b
+    #     e
+    #
+    # We go from the right, extract (a, b, e) and push it onto `lines`,
+    # then (c, d, "") (using an empty string as the index is out of bounds)
+    # and push it onto `lines`, and so on.
     for i in range(-1, -max_length - 1, -1):
         col = [str_index_empty_string(column, i) for column in columns]
-        lines.append("".join(col))
+        # We also strip any full-width spaces that we may have added.
+        lines.append("".join(col).rstrip("　"))
     if not lines_rtl:
         lines = reversed(lines)
     return "\n".join(lines)
