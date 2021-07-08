@@ -1,3 +1,10 @@
 * Blender pseudo vertical text
 
 Blender does not support vertical text. The best you can do is to emulate it with newlines. This addon automates that process.
+
+** Todos
+
+- [ ] Convert back to horizontal
+- [ ] RTL lines and LTR lines support
+- [ ] Record a video showing how it works
+- [ ] Translations
