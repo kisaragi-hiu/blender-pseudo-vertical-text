@@ -1,5 +1,6 @@
 from itertools import zip_longest
 import bpy
+from .translations import t
 
 
 def str_index_empty_string(string, index):
@@ -21,7 +22,7 @@ def is_pseudo_vertical(text):
 
 
 def text_to_pseudo_vertical(text, lines_rtl=True):
-    """Convert `text`, a horizontal string, to a pseudo vertical writing string.
+    """Convert `text`, a horizontal string, to pseudo vertical writing.
 
     If `lines_rtl` is True, "lines" in the vertical text read from right
     to left (default).
@@ -75,29 +76,29 @@ def text_to_horizontal(text, lines_rtl=True):
 # The operator. The ID seems to always start with object.?
 class ToVerticalOperator(bpy.types.Operator):
     bl_idname = "object.to_pseudo_vertical"
-    bl_label = "To vertical"
-    bl_description = "Convert to vertical writing"
+    bl_label = t("to-vertical-label")
+    bl_description = t("to-vertical-description")
     bl_options = {"REGISTER", "UNDO"}
 
     def execute(self, _context):
         for obj in bpy.context.selected_objects:
             if obj.type == "FONT":
-                obj.data.body = text_to_pseudo_vertical(obj.data.body)
                 obj.data.align_x = "RIGHT"
+                obj.data.body = text_to_pseudo_vertical(obj.data.body)
         return {"FINISHED"}
 
 
 class ToHorizontalOperator(bpy.types.Operator):
     bl_idname = "object.to_horizontal"
-    bl_label = "To horizontal"
-    bl_description = "Convert back to horizontal writing"
+    bl_label = t("to-horizontal-label")
+    bl_description = t("to-horizontal-description")
     bl_options = {"REGISTER", "UNDO"}
 
     def execute(self, _context):
         for obj in bpy.context.selected_objects:
             if obj.type == "FONT":
-                obj.data.body = text_to_horizontal(obj.data.body)
                 obj.data.align_x = "LEFT"
+                obj.data.body = text_to_horizontal(obj.data.body)
         return {"FINISHED"}
 
 
@@ -112,7 +113,7 @@ class ToHorizontalOperator(bpy.types.Operator):
 # panel. Commands have to be made as operators.
 class PseudoVerticalPanel(bpy.types.Panel):
     bl_idname = "ITEM_PT_text_pseudo_vertical"
-    bl_label = "Pseudo Vertical Writing"
+    bl_label = t("panel-label")
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_context = "objectmode"

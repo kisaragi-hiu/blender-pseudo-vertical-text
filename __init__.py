@@ -29,7 +29,7 @@ bl_info = {
     "name": "Pseudo vertical writing",
     "description": "Simulate CJK vertical writing with newlines",
     "author": "Kisaragi Hiu",
-    "version": (0, 1, 0),
+    "version": (0, 2, 0),
     "blender": (2, 80, 0),
     "location": "View3D > Sidebar > Item",
     "category": "Object",

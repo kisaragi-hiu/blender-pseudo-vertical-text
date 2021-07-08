@@ -4,7 +4,7 @@ Blender does not support vertical text. The best you can do is to emulate it wit
 
 ** Todos
 
-- [ ] Convert back to horizontal
+- [X] Convert back to horizontal
+- [X] Translations
 - [ ] RTL lines and LTR lines support
 - [ ] Record a video showing how it works
-- [ ] Translations
