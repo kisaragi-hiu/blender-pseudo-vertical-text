@@ -2,6 +2,10 @@
 
 Blender does not support vertical text. The best you can do is to emulate it with newlines. This addon automates that process.
 
+** Install
+
+Press the green download button, then “Download ZIP”, then open Blender to install the zip file like a normal addon.
+
 ** Todos
 
 - [X] Convert back to horizontal
