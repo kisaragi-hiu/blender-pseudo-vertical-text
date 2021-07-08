@@ -63,18 +63,29 @@ def text_to_horizontal(text, lines_rtl=True):
 
 
 # The operator. The ID seems to always start with object.?
-class PseudoVerticalOperator(bpy.types.Operator):
+class ToVerticalOperator(bpy.types.Operator):
     bl_idname = "object.to_pseudo_vertical"
     bl_label = "To vertical"
     bl_description = "Convert to vertical writing"
     bl_options = {"REGISTER", "UNDO"}
 
     def execute(self, _context):
-
         for obj in bpy.context.selected_objects:
             if obj.type == "FONT":
                 obj.data.body = text_to_pseudo_vertical(obj.data.body)
+        return {"FINISHED"}
 
+
+class ToHorizontalOperator(bpy.types.Operator):
+    bl_idname = "object.to_horizontal"
+    bl_label = "To horizontal"
+    bl_description = "Convert back to horizontal writing"
+    bl_options = {"REGISTER", "UNDO"}
+
+    def execute(self, _context):
+        for obj in bpy.context.selected_objects:
+            if obj.type == "FONT":
+                obj.data.body = text_to_horizontal(obj.data.body)
         return {"FINISHED"}
 
 
@@ -97,3 +108,4 @@ class PseudoVerticalPanel(bpy.types.Panel):
 
     def draw(self, _context):
         self.layout.operator("object.to_pseudo_vertical")
+        self.layout.operator("object.to_horizontal")

@@ -18,14 +18,18 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import bpy
-from blender_pseudo_vertical_text import PseudoVerticalOperator, PseudoVerticalPanel
+from blender_pseudo_vertical_text import (
+    ToVerticalOperator,
+    ToHorizontalOperator,
+    PseudoVerticalPanel,
+)
 
 
 bl_info = {
     "name": "Pseudo vertical writing",
     "description": "Simulate CJK vertical writing with newlines",
     "author": "Kisaragi Hiu",
-    "version": (0, 0, 1),
+    "version": (0, 0, 2),
     "blender": (2, 80, 0),
     "location": "View3D > Sidebar > Item",
     "category": "Object",
@@ -33,13 +37,15 @@ bl_info = {
 
 
 def register():
+    bpy.utils.register_class(ToVerticalOperator)
+    bpy.utils.register_class(ToHorizontalOperator)
     bpy.utils.register_class(PseudoVerticalPanel)
-    bpy.utils.register_class(PseudoVerticalOperator)
 
 
 def unregister():
+    bpy.utils.unregister_class(ToVerticalOperator)
+    bpy.utils.unregister_class(ToHorizontalOperator)
     bpy.utils.unregister_class(PseudoVerticalPanel)
-    bpy.utils.unregister_class(PseudoVerticalOperator)
 
 
 if __name__ == "__main__":
