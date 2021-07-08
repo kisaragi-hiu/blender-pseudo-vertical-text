@@ -19,6 +19,13 @@ translations = {
         "to-horizontal-label": "恢復成橫書",
         "to-horizontal-description": "恢復成橫書方便編輯",
     },
+    "zh_CN": {
+        "panel-label": "伪直书",
+        "to-vertical-label": "转换成直书",
+        "to-vertical-description": "在对的地方换行, 模拟直书",
+        "to-horizontal-label": "恢复成横书",
+        "to-horizontal-description": "恢复成横书方便编辑",
+    },
     "ja_JP": {
         "panel-label": "縦書き変換",
         "to-vertical-label": "縦書き（仮）に",
