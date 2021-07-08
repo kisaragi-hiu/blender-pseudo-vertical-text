@@ -83,6 +83,7 @@ class ToVerticalOperator(bpy.types.Operator):
         for obj in bpy.context.selected_objects:
             if obj.type == "FONT":
                 obj.data.body = text_to_pseudo_vertical(obj.data.body)
+                obj.data.align_x = "RIGHT"
         return {"FINISHED"}
 
 
@@ -96,6 +97,7 @@ class ToHorizontalOperator(bpy.types.Operator):
         for obj in bpy.context.selected_objects:
             if obj.type == "FONT":
                 obj.data.body = text_to_horizontal(obj.data.body)
+                obj.data.align_x = "LEFT"
         return {"FINISHED"}
 
 
