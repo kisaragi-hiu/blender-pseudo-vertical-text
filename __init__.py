@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import bpy
-from blender_pseudo_vertical_text import (
+from .blender_pseudo_vertical_text import (
     ToVerticalOperator,
     ToHorizontalOperator,
     PseudoVerticalPanel,
