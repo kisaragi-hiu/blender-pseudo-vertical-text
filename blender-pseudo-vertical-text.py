@@ -2,6 +2,14 @@ from itertools import zip_longest
 import bpy
 
 
+def str_index_empty_string(string, index):
+    "Like string[index], but return an empty string on IndexError."
+    try:
+        return string[index]
+    except IndexError:
+        return ""
+
+
 # We use a trailing newline as the marker instead of the zero-width
 # space, because Blender doesn't actually render the zero-width space
 # as zero-width.
@@ -42,9 +50,14 @@ def text_to_horizontal(text, lines_rtl=True):
         return text
     text = text[0:-1]  # Get rid of the marker
     columns = text.split("\n")
-    # FIXME: breaks when pseudo lines are not of equal length
-    lines = ["".join(x) for x in zip_longest(fillvalue="　", *columns)]
-    if lines_rtl:
+    # I had to do this instead of using zip_longest in order to handle my
+    # use case
+    max_length = len(max(columns, key=len))
+    lines = []
+    for i in range(-1, -max_length - 1, -1):
+        col = [str_index_empty_string(column, i) for column in columns]
+        lines.append("".join(col))
+    if not lines_rtl:
         lines = reversed(lines)
     return "\n".join(lines)
 
