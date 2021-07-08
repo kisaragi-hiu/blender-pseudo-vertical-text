@@ -12,7 +12,7 @@ def is_pseudo_vertical(text):
     return text[-1] == "\n"
 
 
-def convert_to_pseudo_vertical(text, lines_rtl=True):
+def text_to_pseudo_vertical(text, lines_rtl=True):
     """Convert `text`, a horizontal string, to a pseudo vertical writing string.
 
     If `lines_rtl` is True, "lines" in the vertical text read from right
@@ -30,6 +30,39 @@ def convert_to_pseudo_vertical(text, lines_rtl=True):
     columns = ["".join(x) for x in zip_longest(fillvalue="　", *lines)]
     newtext = "\n".join(columns) + "\n"  # marker
     return newtext
+
+
+def text_to_horizontal(text, lines_rtl=True):
+    """Convert `text` back to horizontal.
+
+    If `lines_rtl` is True, the rightmost column becomes the first line, the
+    second rightmost column becomes the second line, and so on (default).
+    """
+    if not is_pseudo_vertical(text):
+        return text
+    text = text[0:-1]  # Get rid of the marker
+    columns = text.split("\n")
+    # FIXME: breaks when pseudo lines are not of equal length
+    lines = ["".join(x) for x in zip_longest(fillvalue="　", *columns)]
+    if lines_rtl:
+        lines = reversed(lines)
+    return "\n".join(lines)
+
+
+# The operator. The ID seems to always start with object.?
+class PseudoVerticalOperator(bpy.types.Operator):
+    bl_idname = "object.to_pseudo_vertical"
+    bl_label = "To vertical"
+    bl_description = "Convert to vertical writing"
+    bl_options = {"REGISTER", "UNDO"}
+
+    def execute(self, _context):
+
+        for obj in bpy.context.selected_objects:
+            if obj.type == "FONT":
+                obj.data.body = text_to_pseudo_vertical(obj.data.body)
+
+        return {"FINISHED"}
 
 
 # Displaying it in the right sidebar under the Item category. This is
@@ -51,23 +84,3 @@ class PseudoVerticalPanel(bpy.types.Panel):
 
     def draw(self, _context):
         self.layout.operator("object.to_pseudo_vertical")
-
-
-# The operator. The ID seems to always start with object.?
-class PseudoVerticalOperator(bpy.types.Operator):
-    bl_idname = "object.to_pseudo_vertical"
-    bl_label = "To vertical"
-    bl_description = "Convert to vertical writing"
-    bl_options = {"REGISTER", "UNDO"}
-
-    def execute(self, _context):
-
-        for obj in bpy.context.selected_objects:
-            if obj.type == "FONT":
-                obj.data.body = convert_to_pseudo_vertical(obj.data.body)
-
-        return {"FINISHED"}
-
-
-bpy.utils.register_class(PseudoVerticalOperator)
-bpy.utils.register_class(PseudoVerticalPanel)
